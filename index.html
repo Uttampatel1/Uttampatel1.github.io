@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uttam Patel</title>
+    <!-- Font Awesome CDN link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <!-- Typing Script CDN Link -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.0/typed.min.js"></script>
+
+    <!-- favicon-->
+    <link rel="shortcut icon" href="image/Favicon.png" type="image/x-icon">
+
+    <!-- Custom CSS file link -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .header_left_img img {
+            width: 75%;
+            height: 80%;
+            display: block;
+            object-fit: cover;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Preloader Section Start Here -->
+
+    <div id="preffect"></div>
+
+    <!-- Nav Section Start Here -->
+    <nav>
+        <div class="container nav_container hidden">
+            <a href="index.html">
+                <h4><span>Uttam</span>Patel</h4>
+            </a>
+            <ul class="nav_menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#service">Service</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button id="open-menu-btn"><i class="fa-solid fa-bars"></i></button>
+            <button id="close-menu-btn"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+    </nav>
+    <!-- Nav Section End Here -->
+    <div class="cursor"></div>
+    <!-- Header Section Start Here -->
+    <header>
+        <div class="container header_container" id="home">
+            <div class="header_left">
+                <div class="header_left_img hidden">
+                    <img src="image/Uttam_main.jpg" alt="Model Image">
+                </div>
+            </div>
+            <div class="header_right hidden">
+                <div class="text-1">Hello,</div>
+                <div class="text-2">Uttam Patel</div>
+                <div class="text-3">And I'm a <span class="typing"></span></div>
+                <!--                <a href="" class="btn">Hire Me</a>-->
+            </div>
+        </div>
+    </header>
+    <!-- Header Section End Here -->
+
+    <!-- About Me Section Start Here -->
+    <section class="about hidden" id="about">
+        <h2 class="border_bottom">About Me</h2>
+        <div class="container about_container">
+            <div class="about-img">
+                <img src="image/Uttam_sec-removebg.png" alt="about model">
+            </div>
+            <div class="about-text">
+                <div class="text">
+                    I am Uttam and I'm a <span class="typing-2"></span>
+                </div>
+                <p>
+                    I have completed my B.Tech in Computer Science and am a Data Scientist, Web Developer, and full-time
+                    Programmer. As a Data Scientist, I specialize in analyzing and interpreting complex data to help
+                    drive informed business decisions. I have experience with machine learning, statistical analysis,
+                    and data visualization tools. In addition to my data expertise, I am a skilled Web Developer, adept
+                    at creating responsive and user-friendly web applications. Technology is my passion, and I always
+                    strive to share my knowledge and experience because I believe that "helping others means helping
+                    yourself".</p>
+                <a href="#about" class="btn" onclick="downloadCV()">Download CV</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Me Section End Here -->
+
+    <!-- My Services Section Start Here -->
+    <div class="services hidden" id="service">
+        <h2 class="border_bottom">My Services</h2>
+        <div class="container services_container">
+            <div class="cards">
+                <div class="card">
+                    <div class="sbox">
+                        <i class="fa-solid fa-brain fa-fade"></i>
+                        <h3>Deep Learning</h3>
+                        <p>Developing advanced neural network models for complex problem-solving.
+                            Utilizing deep learning techniques to improve predictive accuracy.
+                            Tailored deep learning solutions for various industries and applications.
+                        </p>
+                        <!--                        <a href="#">Learn More</a>-->
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="sbox">
+                        <i class="fa-solid fa-code fa-fade"></i>
+                        <h3>Data Science</h3>
+                        <p>Harnessing the power of data to drive business insights and decisions.
+                            Analyzing and interpreting complex datasets to uncover patterns and trends.
+                            Customized data science solutions tailored to your unique business needs.
+                        </p>
+                        <!--                        <a href="#">Learn More</a>-->
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="sbox">
+                        <i class="fa-solid fa-robot fa-fade"></i>
+                        <h3>Generative AI</h3>
+                        <p>Creating innovative AI solutions that generate new content and ideas.
+                            Leveraging generative models to develop unique and creative applications.
+                            Customized generative AI solutions to meet your specific needs.
+                        </p>
+                        <!--                        <a href="#">Learn More</a>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- My Services Section End Here -->
+
+    <!-- My Skills Section Start Here -->
+    <div class="skills hidden" id="skills">
+        <div class="new">
+            <h2 class="border_bottom">My Skills</h2>
+        </div>
+        <div class="container skills_container">
+            <div class="bar">
+                <div class="info">
+                    <span>Python</span>
+                </div>
+                <div class="progress-line design">
+                    <span></span>
+                </div>
+            </div>
+            <div class="bar">
+                <div class="info">
+                    <span>Machine Learning</span>
+                </div>
+                <div class="progress-line css">
+                    <span></span>
+                </div>
+            </div>
+            <div class="bar">
+                <div class="info">
+                    <span>Deep Learning</span>
+                </div>
+                <div class="progress-line jquery">
+                    <span></span>
+                </div>
+            </div>
+            <div class="bar">
+                <div class="info">
+                    <span>Generative AI</span>
+                </div>
+                <div class="progress-line python">
+                    <span></span>
+                </div>
+            </div>
+            <div class="bar">
+                <div class="info">
+                    <span>MySQL & MogoDB</span>
+                </div>
+                <div class="progress-line mysql">
+                    <span></span>
+                </div>
+            </div>
+            <div class="bar">
+                <div class="info">
+                    <span>NLP</span>
+                </div>
+                <div class="progress-line php">
+                    <span></span>
+                </div>
+            </div>
+            <div class="bar">
+                <div class="info">
+                    <span>HTML , CSS & JavaScript</span>
+                </div>
+                <div class="progress-line html">
+                    <span></span>
+                </div>
+            </div>
+            <div class="bar">
+                <div class="info">
+                    <span>C / C++ / JAVA</span>
+                </div>
+                <div class="progress-line java">
+                    <span></span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- My Skills Section End Here -->
+
+    <!-- My Portfolio Section Start Here -->
+    <div class="container portfolio_container hidden" id="portfolio">
+        <h2 class="border_bottom">My Portfolio</h2>
+        <div class="gallery">
+            <a href="image/portfolio101.jpg"><img src="image/home%20page.png" alt="Portfolio 1"></a>
+            <a href="image/Amazon.png"><img src="image/amazon101.png" alt="Portfolio 2"></a>
+            <!--            <a href="image/portfolio 3.jpg"><img src="image/portfolio 3.jpg" alt="Portfolio 1"></a>-->
+            <!--            <a href="image/portfolio 4.jpg"><img src="image/portfolio 4.jpg" alt="Portfolio 1"></a>-->
+            <!--            <a href="image/portfolio 5.jpg"><img src="image/portfolio 5.jpg" alt="Portfolio 1"></a>-->
+            <!--            <a href="image/portfolio 6.jpg"><img src="image/portfolio 6.jpg" alt="Portfolio 1"></a>-->
+        </div>
+    </div>
+    <!-- My Portfolio Section End Here -->
+
+    <!-- FAQs Section Start Here -->
+    <section class="faqs hidden">
+        <h2 class="border_bottom">
+            Frequently Asked Questions
+        </h2>
+        <div class="container faqs_container">
+            <article class="faq">
+                <div class="faq_icon">
+                    <i class="fa-solid fa-plus"></i>
+                </div>
+                <div class="question_ans">
+                    <h4>What services do you offer as a data scientist?</h4>
+                    <p>As a data scientist, I offer services including data analysis, machine learning model development, predictive analytics, data visualization, and custom data solutions tailored to your business needs.</p>
+                </div>
+            </article>
+            <article class="faq">
+                <div class="faq_icon">
+                    <i class="fa-solid fa-plus"></i>
+                </div>
+                <div class="question_ans">
+                    <h4>What is your expertise in deep learning?</h4>
+                    <p>As a data scientist with expertise in deep learning, I specialize in developing advanced neural network models for solving complex problems, improving predictive accuracy, and creating innovative AI solutions.</p>
+                </div>
+            </article>
+            <article class="faq">
+                <div class="faq_icon">
+                    <i class="fa-solid fa-plus"></i>
+                </div>
+                <div class="question_ans">
+                    <h4>How do you approach generative AI projects?</h4>
+                    <p>For generative AI projects, I leverage cutting-edge techniques to create AI systems that generate new content and ideas autonomously. My approach involves understanding your requirements, experimenting with different models, and fine-tuning the solution to meet your specific goals.</p>
+                </div>
+            </article>
+            <article class="faq">
+                <div class="faq_icon">
+                    <i class="fa-solid fa-plus"></i>
+                </div>
+                <div class="question_ans">
+                    <h4>Can you explain your experience with data visualization?</h4>
+                    <p>As a data scientist, I have extensive experience in data visualization techniques to communicate insights effectively. I use tools like Matplotlib, Seaborn, and Plotly to create visually appealing and informative visualizations that aid in decision-making.</p>
+                </div>
+            </article>
+            <article class="faq">
+                <div class="faq_icon">
+                    <i class="fa-solid fa-plus"></i>
+                </div>
+                <div class="question_ans">
+                    <h4>What programming languages are essential for a data scientist?</h4>
+                    <p>Essential programming languages for data scientists include Python, R, and SQL. These languages are used for data manipulation, statistical analysis, machine learning, and database management.</p>
+                </div>
+            </article>
+            <article class="faq">
+                <div class="faq_icon">
+                    <i class="fa-solid fa-plus"></i>
+                </div>
+                <div class="question_ans">
+                    <h4>How do you ensure the accuracy of machine learning models?</h4>
+                    <p>To ensure the accuracy of machine learning models, I employ techniques such as cross-validation, hyperparameter tuning, and model evaluation metrics. I also conduct thorough data preprocessing and feature engineering to optimize model performance.</p>
+                </div>
+            </article>
+        </div>
+    </section>
+    
+    <!-- FAQs Section End Here -->
+
+    <!-- Footer Section Start Here -->
+    <footer>
+        <div class="container footer_container hidden">
+            <div class="footer_1">
+                <a href="index.html" class="footer_logo">
+                    <h4>UTTAM</h4>
+                </a>
+                <p>Near L.D.Eng.college, University Road, Ahmedabad(Gujarat)- 380006</p>
+            </div>
+
+            <div class="footer_2">
+                <h4>Permalinks</h4>
+                <ul class="permalinks">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer_3">
+                <h4>Privacy</h4>
+                <ul class="privacy">
+                    <li><a href="#">Privacy & Policy</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                </ul>
+            </div>
+
+            <div class="footer_4">
+                <h4 id="contact">Contact Me</h4>
+                <div>
+                    <p class="mail">utampipaliya@gmail.com</p>
+                </div>
+                <ul class="footer_social">
+                    <!-- <li><a href=""> <i class="fa-brands fa-facebook-f"></i> </a></li> -->
+                    <!-- <li><a href="https://www.instagram.com/uttam_patel_0.7/"> <i class="fa-brands fa-instagram"></i> </a></li> -->
+
+                    <li><a href="https://www.linkedin.com/in/uttam-pipaliya-794382215"> <i class="fa-brands fa-linkedin"></i> </a></li>
+                    <li><a href="https://github.com/uttampatel1"> <i class="fa-brands fa-github"></i> </a></li>
+                    <li><a href="https://www.hackerrank.com/uttampipaliya" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/hackerrank.svg" alt="uttampipaliya" height="30" width="40" /></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer_copyright">
+            <small>Copyright &copy; Inc. All rights reserved.</small>
+        </div>
+    </footer>
+    <!-- Footer Section End Here -->
+
+
+    <!-- Custom Javascript File Link -->
+    <script src="js/script.js"></script>
+</body>
+
+</html>
