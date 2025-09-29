@@ -297,18 +297,29 @@ header::before {
 
 .services_container .cards {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    justify-content: space-between;
-    align-items: center;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    justify-content: center;
+    align-items: stretch;
     margin-bottom: 3rem;
+    padding: 1rem;
 }
 
 .services_container .cards .card {
     background-color: var(--primary);
-    padding: 1.5rem 1rem;
-    margin: 0 1.5rem;
+    padding: 2rem 1.5rem;
+    margin: 0;
     cursor: pointer;
     position: relative;
+    border-radius: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid transparent;
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
 }
 
 .sbox i {
@@ -323,13 +334,20 @@ header::before {
 }
 
 .sbox h3 {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     color: var(--black);
+    margin: 1rem 0 0.8rem 0;
+    font-weight: 600;
+    transition: all 0.3s ease;
 }
 
 .sbox p {
-    margin: 1.2rem 0;
+    margin: 0;
     color: var(--bg);
+    line-height: 1.6;
+    font-size: 0.95rem;
+    text-transform: none;
+    transition: all 0.3s ease;
 }
 
 .sbox a {
@@ -347,8 +365,28 @@ header::before {
     border: 1px solid var(--bg);
 }
 
-.services_container .cards .card:hover .sbox i {
+.services_container .cards .card:hover {
+    transform: translateY(-8px);
+    box-shadow:
+        0 12px 30px rgba(41, 233, 188, 0.3),
+        0 0 20px rgba(41, 233, 188, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
     background-color: var(--bg);
+    border: 1px solid rgba(41, 233, 188, 0.5);
+}
+
+.services_container .cards .card:hover .sbox i {
+    background-color: var(--primary);
+    color: var(--bg);
+    transform: scale(1.15) rotate(10deg);
+}
+
+.services_container .cards .card:hover .sbox h3 {
+    color: var(--primary);
+    transform: translateY(-2px);
+}
+
+.services_container .cards .card:hover .sbox p {
     color: var(--normal);
 }
 
@@ -356,16 +394,18 @@ header::before {
     content: "";
     height: 100%;
     width: 100%;
-    background-color: var(--normal);
+    background: linear-gradient(135deg, rgba(41, 233, 188, 0.1) 0%, rgba(41, 233, 188, 0.05) 100%);
     position: absolute;
     top: 0;
     left: 0;
     z-index: -1;
-    transition: all 0.5s;
+    opacity: 0;
+    border-radius: 1rem;
+    transition: all 0.4s ease;
 }
 
 .services_container .cards .card:hover::after {
-    transform: rotate(13deg);
+    opacity: 1;
 }
 
 /* ======SKILLS======= */
@@ -569,6 +609,58 @@ header::before {
 
 .gallery a img:hover {
     transform: scale(1.4);
+}
+
+/* Portfolio Grid Styles */
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+    padding: 1rem;
+}
+
+.project-card {
+    background: var(--black);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    border: var(--border);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(41, 233, 188, 0.1);
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(41, 233, 188, 0.2);
+}
+
+.project-info h3 {
+    color: var(--primary);
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.project-info p {
+    color: var(--normal);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    text-transform: none;
+}
+
+.tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.tech {
+    background: var(--primary);
+    color: var(--black);
+    padding: 0.3rem 0.8rem;
+    border-radius: 1rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: none;
 }
 
 /* ======COURSES======= */
@@ -814,16 +906,18 @@ footer ul li a:hover {
     }
 
     .services_container .cards {
-        row-gap: 1rem;
         grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        padding: 1rem 0.5rem;
     }
-    
+
     .services_container .cards .card {
-       padding: 2rem 0.3rem;
-       margin: 0 0.5rem;
+       padding: 1.5rem 1rem;
+       margin: 0;
+       min-height: 220px;
     }
     .services_container .cards .card:hover::after {
-        transform: rotate(5deg);
+        transform: rotate(3deg);
     }
     .gallery a {
         height: 14rem;
@@ -886,18 +980,21 @@ footer ul li a:hover {
         flex-direction: column;
     }
     .services_container .cards {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 1rem;
         margin-bottom: 3rem;
     }
-    
+
     .services_container .cards .card {
-       padding: 3rem 1rem;
-       margin: 1rem 1rem;
+       padding: 2rem 1.5rem;
+       margin: 0;
+       min-height: 200px;
+       max-width: 400px;
+       margin: 0 auto;
     }
     .services_container .cards .card:hover::after {
-        transform: rotate(5deg);
+        transform: rotate(2deg);
     }
 
     .gallery a{
