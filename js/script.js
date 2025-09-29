@@ -21,14 +21,14 @@ let intervalId = setInterval(() => {
 
 
 var typed = new Typed(".typing",{
-    strings: ["Data Scientist", "Web Devloper", "AI Researcher","Data Analyst" , "Freelancer"],
+    strings: ["AI Researcher", "Machine Learning Engineer", "Data Analyst", "Deep Learning Specialist"],
     typeSpeed: 80,
     backSpeed: 80,
     loop: true,
 });
 
 var typed = new Typed(".typing-2",{
-    strings: ["Data Scientist", "Web Devloper", "AI Researcher","Data Analyst" , "Freelancer"],
+    strings: ["Data Scientist", "AI Researcher", "Machine Learning Expert", "Data Analyst"],
     typeSpeed: 100,
     backSpeed: 60,
     loop: true,
