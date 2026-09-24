@@ -1,0 +1,168 @@
+.slip {
+  position: relative;
+  border: 1px solid var(--rule-strong);
+  background: var(--surface);
+  padding: clamp(18px, 2.6vw, 36px);
+}
+/* perforated tear-off edge */
+.slip::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -1px;
+  height: 1px;
+  background: repeating-linear-gradient(90deg, var(--bg) 0 6px, transparent 6px 12px);
+}
+.slipHead {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--muted);
+  padding-bottom: 14px;
+  margin-bottom: 20px;
+  border-bottom: 1px dashed var(--rule-strong);
+}
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px var(--col-gap);
+}
+.wide {
+  grid-column: 1 / -1;
+}
+.field {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.field > span,
+.field > legend {
+  color: var(--muted);
+  padding: 0;
+}
+.field input:not([type='radio']),
+.field textarea {
+  width: 100%;
+  padding: 10px 0;
+  border: 0;
+  border-bottom: 1px solid var(--rule-strong);
+  background: transparent;
+  font-size: 1.05rem;
+  border-radius: 0;
+  transition: border-color var(--t-fast) var(--ease-out);
+}
+.field textarea {
+  resize: vertical;
+  line-height: 1.5;
+}
+.field input:focus-visible,
+.field textarea:focus-visible {
+  border-bottom-color: var(--accent);
+}
+.field input::placeholder {
+  color: var(--muted);
+  opacity: 0.8;
+}
+
+.urgency {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 22px;
+}
+.urgency legend {
+  margin-bottom: 8px;
+  width: 100%;
+}
+.radio {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.radio input {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  margin: 0;
+  border: 1px solid var(--rule-strong);
+  display: grid;
+  place-items: center;
+}
+.radio input::after {
+  content: '×';
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1;
+  color: var(--accent);
+  opacity: 0;
+}
+.radio input:checked {
+  border-color: var(--accent);
+}
+.radio input:checked::after {
+  opacity: 1;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+.submit {
+  display: inline-flex;
+  gap: 14px;
+  padding: 16px 24px;
+  border: 1px solid var(--fg);
+  background: var(--fg);
+  color: var(--bg);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition:
+    background var(--t-fast) var(--ease-out),
+    color var(--t-fast) var(--ease-out);
+}
+.submit:hover {
+  background: transparent;
+  color: var(--fg);
+}
+.submit:disabled {
+  opacity: 0.6;
+}
+.error {
+  color: var(--danger);
+}
+
+.done {
+  padding-block: clamp(20px, 4vw, 48px);
+}
+.doneTitle {
+  font-size: var(--fs-h2);
+  line-height: 1;
+}
+.doneSub {
+  margin-top: 10px;
+  font-size: var(--fs-lead);
+  color: var(--muted);
+}
+.doneRef {
+  margin-top: 18px;
+}
+.again {
+  margin-top: 22px;
+  padding: 10px 14px;
+  border: 1px solid var(--rule-strong);
+  background: none;
+}
+
+@media (max-width: 699px) {
+  .form {
+    grid-template-columns: 1fr;
+  }
+}

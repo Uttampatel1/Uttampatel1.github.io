@@ -1,0 +1,11 @@
+.todo {
+  display: inline-block;
+  margin: 4px 0;
+  padding: 3px 8px;
+  border: 1px dashed var(--warn);
+  color: var(--warn);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+}

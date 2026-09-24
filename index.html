@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en" data-film="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Uttam Patel</title>
+    <meta name="description" content="Uttam Patel is a data scientist and AI engineer who builds machine learning and LLM systems." />
+    <meta name="theme-color" content="#07090B" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Google Fonts serves unicode-range subsets; display=swap keeps text visible while they load -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400..600&family=JetBrains+Mono:wght@400;500&display=swap"
+    />
+    <script>
+      // Apply the saved window/level (theme) before first paint so there is no flash.
+      try {
+        var wl = JSON.parse(localStorage.getItem('wl') || 'null')
+        if (wl && wl.vars) {
+          var r = document.documentElement
+          for (var k in wl.vars) r.style.setProperty(k, wl.vars[k])
+          r.dataset.film = wl.film === 'light' ? 'light' : 'dark'
+        }
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>
+      <p style="padding: 24px; font-family: sans-serif">Uttam Patel — Data Scientist &amp; AI Engineer. Email: utampipaliya@gmail.com</p>
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

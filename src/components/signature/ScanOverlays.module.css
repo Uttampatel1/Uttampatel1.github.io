@@ -1,0 +1,33 @@
+.wipe {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  pointer-events: none;
+  background: var(--bg);
+  clip-path: inset(0 0 100% 0);
+}
+/* the bright acquisition line rides the moving edge of the panel */
+.wipeLine {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--accent);
+  box-shadow: 0 0 14px 2px var(--accent);
+}
+
+.eggLine {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 85;
+  opacity: 0;
+  pointer-events: none;
+  background: var(--accent);
+  box-shadow:
+    0 0 24px 4px var(--accent),
+    0 -40px 60px -20px color-mix(in srgb, var(--accent) 30%, transparent);
+}

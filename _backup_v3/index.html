@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Uttam Patel</title>
+    <meta name="description" content="Uttam Patel is a data scientist and AI engineer who builds machine learning and LLM systems." />
+    <meta name="theme-color" content="#16122B" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400&display=swap"
+    />
+    <script>
+      // Apply the saved theme before first paint so there is no flash; dark is the default.
+      try {
+        var t = localStorage.getItem('theme')
+        document.documentElement.dataset.theme = t === 'light' ? 'light' : 'dark'
+      } catch (e) {
+        document.documentElement.dataset.theme = 'dark'
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

@@ -1,0 +1,74 @@
+.slice {
+  position: relative;
+  z-index: 2;
+  padding-block: clamp(72px, 12vw, 160px) clamp(40px, 6vw, 72px);
+  outline: none;
+}
+
+.frame {
+  position: relative;
+  border-top: 1px solid var(--rule-strong);
+  padding-top: 18px;
+}
+
+.metaTop,
+.metaBottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  color: var(--muted);
+}
+.metaBottom {
+  margin-top: clamp(48px, 7vw, 96px);
+  padding-top: 12px;
+  border-top: 1px solid var(--rule);
+}
+.index {
+  color: var(--fg);
+  font-weight: 500;
+}
+
+/* ruler ticks down the left gutter, like a viewer's measurement scale */
+.ruler {
+  position: absolute;
+  top: 56px;
+  bottom: 56px;
+  left: calc(var(--gutter) * -0.5 - 4px);
+  width: 8px;
+  background:
+    repeating-linear-gradient(to bottom, var(--rule-strong) 0 1px, transparent 1px 40px) left / 8px 100% no-repeat,
+    repeating-linear-gradient(to bottom, var(--rule) 0 1px, transparent 1px 8px) left / 4px 100% no-repeat;
+}
+@media (max-width: 899px) {
+  .ruler {
+    display: none;
+  }
+}
+
+.scanline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+  background: var(--accent);
+  box-shadow: 0 0 12px 1px var(--accent);
+  z-index: 3;
+}
+
+.body {
+  position: relative;
+  margin-top: clamp(28px, 5vw, 64px);
+}
+
+.title {
+  font-size: var(--fs-h2);
+  max-width: 14ch;
+  margin-bottom: clamp(32px, 5vw, 72px);
+}
+.title em {
+  font-style: italic;
+  color: var(--accent);
+}
