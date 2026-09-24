@@ -1,0 +1,165 @@
+.layout {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+  row-gap: 40px;
+}
+
+.chart {
+  grid-column: 1 / span 5;
+  margin: 0;
+}
+.sticky {
+  position: sticky;
+  top: calc(var(--header-h) + 32px);
+}
+
+.chartHead {
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.legend {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.trainKey,
+.valKey {
+  display: inline-block;
+  width: 14px;
+  height: 0;
+  border-top: 2px solid var(--accent);
+}
+.valKey {
+  border-top: 1px dashed var(--muted);
+  margin-left: 8px;
+}
+
+.svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.grid {
+  stroke: var(--rule);
+  stroke-width: 1;
+}
+.axis {
+  stroke: var(--rule-strong);
+  stroke-width: 1;
+}
+.train,
+.val {
+  fill: none;
+  vector-effect: non-scaling-stroke;
+}
+.train {
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+.val {
+  stroke: var(--muted);
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+}
+.marker {
+  fill: var(--accent);
+}
+.markerRing {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1;
+  opacity: 0.5;
+}
+
+.readout {
+  margin-top: 12px;
+  color: var(--fg);
+}
+.caption {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 0.62rem;
+}
+
+.log {
+  grid-column: 7 / -1;
+  display: grid;
+  gap: clamp(40px, 6vw, 72px);
+}
+
+.epoch {
+  display: grid;
+  gap: 10px;
+  padding-top: 16px;
+  border-top: 1px solid var(--rule);
+}
+
+.epochLine {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+.tag {
+  color: var(--accent);
+}
+.years {
+  color: var(--muted);
+}
+
+.role {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  line-height: 1.02;
+}
+
+.checkpoints {
+  display: grid;
+  gap: 6px;
+  margin-top: 6px;
+}
+.cp {
+  display: grid;
+  grid-template-columns: 11ch 1fr;
+  gap: 14px;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+.cpTag {
+  color: var(--fg);
+  padding-top: 0.25em;
+  white-space: pre;
+}
+
+.saved {
+  color: var(--muted);
+  font-size: 0.64rem;
+}
+
+/* fast log-line reveal: armed only below the fold, each line 35ms after the last */
+.epoch[data-armed] .line {
+  opacity: 0;
+  transform: translateX(-8px);
+}
+.epoch[data-in] .line {
+  opacity: 1;
+  transform: none;
+  transition: opacity 220ms linear calc(var(--i) * 35ms), transform 320ms var(--ease-out) calc(var(--i) * 35ms);
+}
+
+@media (max-width: 899px) {
+  .chart,
+  .log {
+    grid-column: 1 / -1;
+  }
+  .sticky {
+    position: static;
+  }
+  .cp {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}

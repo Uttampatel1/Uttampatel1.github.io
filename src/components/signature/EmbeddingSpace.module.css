@@ -1,0 +1,154 @@
+.layout {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+  row-gap: 32px;
+}
+
+.stage {
+  grid-column: 1 / span 7;
+  position: relative;
+  aspect-ratio: 1 / 0.92;
+  border: 1px solid var(--rule);
+  background: radial-gradient(circle at 50% 45%, var(--surface), transparent 70%);
+}
+
+.canvas {
+  position: absolute !important;
+  inset: 0;
+}
+
+.stageMeta {
+  position: absolute;
+  inset: 12px 14px auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--muted);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+}
+
+.knn {
+  position: absolute;
+  inset: auto 14px 12px;
+  color: var(--fg);
+  text-transform: none;
+  z-index: 1;
+  min-height: 1.2em;
+  pointer-events: none;
+}
+
+.pointLabel span {
+  display: block;
+  white-space: nowrap;
+  padding: 2px 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--fg);
+  background: var(--bg);
+  border: 1px solid var(--rule-strong);
+  transform: translateY(-16px);
+}
+.pointLabel span[data-strong] {
+  border-color: var(--accent);
+}
+
+.clusterLabel {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: opacity var(--t-fast);
+  text-shadow: 0 0 6px var(--bg), 0 0 2px var(--bg);
+}
+
+.clusters {
+  grid-column: 9 / -1;
+  display: grid;
+  align-content: start;
+}
+
+.cluster {
+  border-top: 1px solid var(--rule);
+  padding: 12px 0 14px;
+  transition: opacity var(--t-fast) var(--ease-out);
+}
+.cluster:last-child {
+  border-bottom: 1px solid var(--rule);
+}
+/* the 3D view dims other clusters to 10%; the list keeps text at AA contrast and dims only the swatch */
+.dim .clusterBtn {
+  color: var(--muted);
+}
+.dim .clusterBtn i {
+  opacity: 0.1;
+}
+
+.clusterBtn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 40px;
+  padding: 0;
+  background: none;
+  border: 0;
+  text-align: left;
+  font-size: 1.05rem;
+}
+.clusterBtn i {
+  width: 10px;
+  height: 10px;
+  background: var(--cat);
+  flex: none;
+}
+.clusterBtn[aria-pressed='true'] i {
+  outline: 1px solid var(--fg);
+  outline-offset: 2px;
+}
+.count {
+  margin-left: auto;
+  color: var(--muted);
+}
+
+.items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 6px;
+  margin-top: 6px;
+  padding-left: 22px;
+}
+.skill {
+  min-height: 28px;
+  padding: 0 7px;
+  background: none;
+  border: 1px solid transparent;
+  color: var(--muted);
+  font-size: 0.86rem;
+  transition: color var(--t-micro), border-color var(--t-micro);
+}
+.skill:hover,
+.skillOn {
+  color: var(--fg);
+  border-color: var(--cat);
+}
+
+@media (max-width: 899px) {
+  .stage,
+  .clusters {
+    grid-column: 1 / -1;
+  }
+  .stage {
+    aspect-ratio: 1 / 1;
+  }
+}

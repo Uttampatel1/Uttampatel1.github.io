@@ -1,20 +1,31 @@
 import { useEffect, useRef, useState } from 'react'
-import { profile } from '../../content'
-import { slice } from '../../design/tokens'
-import { WindowLevelDial } from '../signature/WindowLevelDial'
+import { profile } from '../../data/profile'
+import { layerLabel, layers, type LayerId } from '../../design/tokens'
+import { AskButton } from '../signature/CommandBarLauncher'
+import { TemperatureDial } from '../signature/TemperatureDial'
+import { Todo } from '../ui/Todo'
 import styles from './Chrome.module.css'
 
 const NAV = [
+  ['#about', 'About'],
   ['#work', 'Work'],
-  ['#services', 'Services'],
   ['#skills', 'Skills'],
-  ['#report', 'Report'],
-  ['#faq', 'FAQ'],
-  ['#contact', 'Consult'],
+  ['#log', 'Log'],
+  ['#contact', 'Contact'],
 ] as const
 
+// Sticky mini-nav: the recruiter fast path. Name, sections, Ask, CV and the temperature dial.
 export function Header() {
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const on = () => setScrolled(window.scrollY > 24)
+    on()
+    window.addEventListener('scroll', on, { passive: true })
+    return () => window.removeEventListener('scroll', on)
+  }, [])
+
   useEffect(() => {
     if (!open) return
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false)
@@ -23,12 +34,19 @@ export function Header() {
   }, [open])
 
   return (
-    <header className={styles.header}>
+    <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
       <div className={`wrap ${styles.bar}`}>
-        <a href="#top" className={styles.wordmark}>
-          <span className={styles.mark} aria-hidden="true" />
-          {profile.name}
+        <a href="#top" className={styles.wordmark} aria-label={`${profile.name}, back to top`}>
+          <svg viewBox="0 0 20 20" className={styles.mark} aria-hidden="true">
+            <circle cx="3" cy="5" r="2" />
+            <circle cx="3" cy="15" r="2" />
+            <circle cx="17" cy="10" r="2.6" className={styles.markOut} />
+            <path d="M3 5L17 10M3 15L17 10" />
+          </svg>
+          <span>{profile.name}</span>
+          <span className={`mono ${styles.roleTag}`}>{profile.role}</span>
         </a>
+
         <nav aria-label="Sections" className={styles.navWrap}>
           <button
             type="button"
@@ -44,7 +62,7 @@ export function Header() {
               <li key={href}>
                 <a href={href} className="mono u-link" onClick={() => setOpen(false)}>
                   <span className={styles.navIdx} aria-hidden="true">
-                    {String(i + 1).padStart(2, '0')}
+                    {String(i + 2).padStart(2, '0')}
                   </span>
                   {label}
                 </a>
@@ -52,43 +70,60 @@ export function Header() {
             ))}
           </ul>
         </nav>
-        <WindowLevelDial />
+
+        <div className={styles.tools}>
+          <AskButton className={styles.askBtn} />
+          {profile.cvHref ? (
+            <a className={`mono ${styles.cv}`} href={profile.cvHref} download>
+              CV <span aria-hidden="true">↓</span>
+            </a>
+          ) : (
+            <Todo>CV</Todo>
+          )}
+          <TemperatureDial />
+        </div>
       </div>
     </header>
   )
 }
 
-// Live slice readout tied to scroll depth: the page is the volume.
-export function ScanHud() {
-  const text = useRef<HTMLSpanElement>(null)
+// Fixed readout of which layer of the forward pass is on screen, plus overall progress.
+export function LayerHud() {
+  const [current, setCurrent] = useState<LayerId>('top')
   const bar = useRef<HTMLSpanElement>(null)
-  const root = useRef<HTMLDivElement>(null)
+
   useEffect(() => {
+    const els = layers.map((l) => document.getElementById(l.id)).filter(Boolean) as HTMLElement[]
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) if (e.isIntersecting) setCurrent(e.target.id as LayerId)
+      },
+      { rootMargin: '-45% 0px -50% 0px' },
+    )
+    els.forEach((el) => io.observe(el))
+
     let raf = 0
     const update = () => {
       raf = 0
       const max = document.documentElement.scrollHeight - window.innerHeight
       const p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0
-      if (text.current) text.current.textContent = slice(1 + Math.round(p * 127))
       if (bar.current) bar.current.style.transform = `scaleX(${p})`
-      // the hero has its own readout; the HUD takes over once it scrolls away
-      root.current?.classList.toggle(styles.hudOn, window.scrollY > window.innerHeight * 0.6)
     }
     const onScroll = () => {
       if (!raf) raf = requestAnimationFrame(update)
     }
     update()
     window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', onScroll)
     return () => {
+      io.disconnect()
       window.removeEventListener('scroll', onScroll)
-      window.removeEventListener('resize', onScroll)
       cancelAnimationFrame(raf)
     }
   }, [])
+
   return (
-    <div ref={root} className={`mono ${styles.hud}`} aria-hidden="true">
-      <span ref={text}>{slice(1)}</span>
+    <div className={`mono ${styles.hud} ${current === 'top' ? styles.hudHidden : ''}`} aria-hidden="true">
+      <span>{layerLabel(current)}</span>
       <span className={styles.hudTrack}>
         <span ref={bar} className={styles.hudBar} />
       </span>
@@ -103,10 +138,8 @@ export function Footer() {
         <span>
           © {new Date().getFullYear()} {profile.name}
         </span>
-        <span className={styles.egg} title="Try it">
-          ↑↑↓↓←→←→BA · or type “scan”
-        </span>
-        <span>End of study · {slice(128)}</span>
+        <span className={styles.egg}>↑↑↓↓←→←→BA · or type “overfit”</span>
+        <span>end of forward pass · {layers.length} layers</span>
       </div>
     </footer>
   )

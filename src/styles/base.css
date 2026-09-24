@@ -1,26 +1,28 @@
-/* Tokens mirror src/design/tokens.ts. Surface colors are the dark-film defaults; the W/L dial
-   (hooks/useWindowLevel.ts) overwrites them inline on <html> at runtime. */
+/* Tokens mirror src/design/tokens.ts. Surface colors below are the defaults for temperature 0.7;
+   hooks/useTemperature.ts overwrites them inline on <html> at runtime (and index.html pre-paint). */
 :root {
   --bg: #07090b;
-  --surface: #0d1013;
-  --fg: #ece7dc;
-  --muted: #9a9a95;
-  --rule: #1d2226;
-  --rule-strong: #3a4146;
-  --accent: #3fe0c5;
+  --surface: #0f1215;
+  --fg: #ece8df;
+  --muted: #8f918c;
+  --rule: #1b1f23;
+  --rule-strong: #353b40;
+  --accent: #c6ff3d;
+  --on-accent: #07090b;
+  --grain: 0.021;
+  --motion: 0.7;
+  --grid-alpha: 0.33;
 
-  /* data palette (charts + skill clusters only) + status colors */
-  --series-teal: #34d1bf;
-  --series-amber: #f2a93b;
-  --series-azure: #5b9bff;
-  --warn: #f2a93b;
+  /* category palette: project categories and data marks only */
+  --cat-ml: #5ca8ff;
+  --cat-llm: #ff7ac6;
+  --cat-saas: #ffb547;
+  --cat-quant: #4be3a5;
+  --cat-web3: #ff6b4a;
+  --cat-agency: #a58bff;
+
+  --warn: #ffb547;
   --danger: #ff7a6e;
-
-  /* aliases read by ServiceCanvas */
-  --text: var(--fg);
-  --c1: var(--accent);
-  --c2: var(--series-amber);
-  --c3: var(--series-azure);
 
   --font-display: 'Instrument Serif', 'Times New Roman', serif;
   --font-body: 'Inter Tight', system-ui, sans-serif;
@@ -28,18 +30,18 @@
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
-  --t-micro: 180ms;
-  --t-fast: 320ms;
-  --t-base: 600ms;
+  --t-micro: 160ms;
+  --t-fast: 280ms;
+  --t-base: 550ms;
 
   --gutter: clamp(16px, 3.2vw, 48px);
   --col-gap: clamp(12px, 1.6vw, 24px);
   --max: 1560px;
-  --header-h: 64px;
+  --header-h: 60px;
 
-  --fs-mega: clamp(3.4rem, 12vw, 13rem);
+  --fs-mega: clamp(3.6rem, 12vw, 14rem);
   --fs-display: clamp(2.6rem, 7vw, 7.5rem);
-  --fs-h2: clamp(2.2rem, 5vw, 4.8rem);
+  --fs-h2: clamp(2.4rem, 6vw, 6rem);
   --fs-h3: clamp(1.25rem, 1.9vw, 1.6rem);
   --fs-body: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
   --fs-lead: clamp(1.15rem, 1rem + 0.6vw, 1.5rem);
@@ -48,13 +50,16 @@
   color-scheme: dark;
 }
 
-:root[data-film='light'] {
+:root[data-theme='light'] {
   color-scheme: light;
-  --series-teal: #0e8276;
-  --series-amber: #a45f00;
-  --series-azure: #2457cc;
-  --warn: #a45f00;
-  --danger: #c23a31;
+  --cat-ml: #1f5fc4;
+  --cat-llm: #b8267a;
+  --cat-saas: #9a5b00;
+  --cat-quant: #0b7a4e;
+  --cat-web3: #b83a1c;
+  --cat-agency: #5b3fc4;
+  --warn: #9a5b00;
+  --danger: #b3261e;
 }
 
 *,
@@ -67,7 +72,7 @@ html {
   -webkit-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  scroll-padding-top: var(--header-h);
+  scroll-padding-top: calc(var(--header-h) + 8px);
 }
 
 html.lenis,
@@ -85,8 +90,8 @@ body {
   font-family: var(--font-body);
   font-size: var(--fs-body);
   line-height: 1.55;
-  font-feature-settings: 'ss01', 'cv11';
   overflow-x: clip;
+  transition: background-color var(--t-fast) linear, color var(--t-fast) linear;
 }
 
 h1,
@@ -96,8 +101,16 @@ p,
 dl,
 dd,
 figure,
-blockquote {
+blockquote,
+pre {
   margin: 0;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 img,
@@ -119,12 +132,16 @@ select {
   color: inherit;
 }
 
-::selection {
-  background: var(--accent);
-  color: var(--bg);
+button {
+  cursor: pointer;
 }
 
-/* ─── type primitives ─────────────────────────────────────────── */
+::selection {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+/* ─── type primitives: serif for moments, grotesk for reading, mono for the machine ─── */
 
 .mono {
   font-family: var(--font-mono);
@@ -137,8 +154,13 @@ select {
 .display {
   font-family: var(--font-display);
   font-weight: 400;
-  line-height: 0.92;
+  line-height: 0.9;
   letter-spacing: -0.02em;
+}
+
+.display em {
+  font-style: italic;
+  color: var(--accent);
 }
 
 .muted {
@@ -185,34 +207,37 @@ select {
 }
 .gridlines > div {
   height: 100%;
-  border-inline: 1px solid var(--rule);
-  opacity: 0.35;
+  border-left: 1px solid var(--rule);
+  opacity: var(--grid-alpha);
 }
-.gridlines > div + div {
-  border-left: 0;
+.gridlines > div:last-child {
+  border-right: 1px solid var(--rule);
 }
 @media (max-width: 899px) {
-  .gridlines > div:nth-child(n + 5) {
-    display: none;
-  }
   .gridlines {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
+  .gridlines > div:nth-child(n + 5) {
+    display: none;
+  }
+  .gridlines > div:nth-child(4) {
+    border-right: 1px solid var(--rule);
+  }
 }
 
-/* scanner noise: a static turbulence tile under 3% opacity, stepped so it reads as live grain */
+/* film grain: a static turbulence tile, opacity driven by temperature and capped under 3% */
 .grain {
   position: fixed;
   inset: -50%;
   z-index: 60;
   pointer-events: none;
-  opacity: 0.028;
+  opacity: var(--grain);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
   animation: grain 0.9s steps(3) infinite;
 }
-:root[data-film='light'] .grain {
-  opacity: 0.045;
+:root[data-theme='light'] .grain {
   filter: invert(1);
+  animation: none; /* low temperature: near-static */
 }
 @keyframes grain {
   0% {
@@ -230,9 +255,9 @@ select {
 
 .skip-link {
   position: fixed;
-  top: 12px;
-  left: 12px;
-  z-index: 100;
+  top: 10px;
+  left: 10px;
+  z-index: 120;
   padding: 10px 14px;
   background: var(--fg);
   color: var(--bg);
@@ -241,61 +266,108 @@ select {
   text-transform: uppercase;
   letter-spacing: 0.06em;
   text-decoration: none;
-  transform: translateY(-160%);
+  transform: translateY(-180%);
   transition: transform var(--t-fast) var(--ease-out);
 }
 .skip-link:focus-visible {
   transform: none;
 }
 
-/* Fallback focus ring. When the crosshair-bracket overlay is running (html.focus-brackets)
-   the outline is replaced by corner brackets drawn around the focused element. */
 :focus-visible {
-  outline: 1px solid var(--accent);
-  outline-offset: 4px;
-}
-html.focus-brackets :focus-visible {
-  outline: 1px solid transparent;
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 
-/* Crosshair cursor replaces the pointer on fine-pointer devices only */
-html.has-crosshair,
-html.has-crosshair * {
+/* the attention cursor replaces the pointer on fine-pointer devices only */
+html.has-attention,
+html.has-attention * {
   cursor: none !important;
 }
-html.has-crosshair :is(input, textarea, select, [contenteditable='true']) {
+html.has-attention :is(input, textarea, select, [contenteditable='true']) {
   cursor: text !important;
 }
 
-/* ─── film inversion as a horizontal scanline wipe (View Transitions) ─── */
-html.vt-scan::view-transition-old(root) {
+/* the element the attention cursor weighs highest */
+[data-attn-top] {
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 45%, transparent);
+  transition: box-shadow var(--t-fast) var(--ease-out);
+}
+
+/* ─── light/dark flip as a left-to-right wipe (View Transitions) ─── */
+html.vt-wipe::view-transition-old(root) {
   animation: none;
 }
-html.vt-scan::view-transition-new(root) {
-  animation: vt-scan 700ms var(--ease-out) both;
+html.vt-wipe::view-transition-new(root) {
+  animation: vt-wipe 650ms var(--ease-out) both;
 }
-@keyframes vt-scan {
+@keyframes vt-wipe {
   from {
-    clip-path: inset(0 0 100% 0);
+    clip-path: inset(0 100% 0 0);
   }
   to {
     clip-path: inset(0 0 0 0);
   }
 }
 
-/* ─── micro-interactions shared by links ──────────────────────── */
+/* ─── shared micro-interactions ───────────────────────────────── */
 
+/* underline-draw links */
 .u-link {
   text-decoration: none;
-  background: linear-gradient(currentColor, currentColor) no-repeat 0 100% / 0% 1px;
+  background: linear-gradient(currentColor, currentColor) no-repeat 100% 100% / 0% 1px;
   transition: background-size var(--t-fast) var(--ease-out), color var(--t-micro);
   padding-bottom: 2px;
 }
 .u-link:hover,
 .u-link:focus-visible {
+  background-position: 0 100%;
   background-size: 100% 1px;
 }
 
+/* buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid var(--rule-strong);
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background-color var(--t-fast) var(--ease-out), color var(--t-fast) var(--ease-out),
+    border-color var(--t-fast) var(--ease-out);
+}
+.btn:hover {
+  border-color: var(--fg);
+}
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+}
+.btn-primary:hover {
+  background: var(--fg);
+  border-color: var(--fg);
+  color: var(--bg);
+}
+.btn .arrow {
+  transition: transform var(--t-fast) var(--ease-out);
+}
+.btn:hover .arrow {
+  transform: translateX(4px);
+}
+
+kbd {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  padding: 1px 5px;
+  border: 1px solid var(--rule-strong);
+  border-radius: 3px;
+}
 
 /* ─── reduced motion: every effect has a static fallback ──────── */
 @media (prefers-reduced-motion: reduce) {
@@ -303,11 +375,25 @@ html.vt-scan::view-transition-new(root) {
   *::before,
   *::after {
     animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 1ms !important;
     scroll-behavior: auto !important;
   }
   .grain {
     animation: none;
+  }
+}
+
+/* streamed-text caret (TokenStream) */
+.stream-caret {
+  display: inline-block;
+  margin-left: 1px;
+  color: var(--accent);
+  animation: stream-caret 0.9s steps(1) infinite;
+}
+@keyframes stream-caret {
+  50% {
+    opacity: 0;
   }
 }

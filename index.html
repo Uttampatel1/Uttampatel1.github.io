@@ -1,11 +1,21 @@
 <!doctype html>
-<html lang="en" data-film="dark">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Uttam Patel</title>
-    <meta name="description" content="Uttam Patel is a data scientist and AI engineer who builds machine learning and LLM systems." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Uttam Patel · AI Engineer & Data Scientist</title>
+    <meta
+      name="description"
+      content="Uttam Patel is an AI engineer and data scientist who builds AI that ships: machine learning models, LLM agents and automations, SaaS products and data systems, from idea to production."
+    />
     <meta name="theme-color" content="#07090B" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Uttam Patel · I build AI that ships." />
+    <meta
+      property="og:description"
+      content="AI engineer & data scientist. ML models, LLM agents and automations, SaaS products and data systems, from idea to production."
+    />
+    <meta name="twitter:card" content="summary" />
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -14,14 +24,27 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400..600&family=JetBrains+Mono:wght@400;500&display=swap"
     />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Uttam Patel",
+        "jobTitle": "AI Engineer & Data Scientist",
+        "description": "Builds machine learning models, LLM agents and automations, SaaS products and data-driven systems, from idea to production.",
+        "email": "mailto:utampipaliya@gmail.com",
+        "address": { "@type": "PostalAddress", "addressLocality": "Ahmedabad", "addressRegion": "Gujarat", "addressCountry": "IN" },
+        "knowsAbout": ["Machine learning", "Deep learning", "Large language models", "AI agents", "Workflow automation", "SaaS", "Data engineering", "Algorithmic trading", "Blockchain"],
+        "sameAs": ["https://huggingface.co/Uttampatel"]
+      }
+    </script>
     <script>
-      // Apply the saved window/level (theme) before first paint so there is no flash.
+      // Apply the saved temperature (theme) before first paint so there is no flash.
       try {
-        var wl = JSON.parse(localStorage.getItem('wl') || 'null')
-        if (wl && wl.vars) {
+        var s = JSON.parse(localStorage.getItem('temperature') || 'null')
+        if (s && s.vars) {
           var r = document.documentElement
-          for (var k in wl.vars) r.style.setProperty(k, wl.vars[k])
-          r.dataset.film = wl.film === 'light' ? 'light' : 'dark'
+          for (var k in s.vars) r.style.setProperty(k, s.vars[k])
+          r.dataset.theme = s.theme === 'light' ? 'light' : 'dark'
         }
       } catch (e) {}
     </script>
@@ -29,7 +52,9 @@
   <body>
     <div id="root"></div>
     <noscript>
-      <p style="padding: 24px; font-family: sans-serif">Uttam Patel — Data Scientist &amp; AI Engineer. Email: utampipaliya@gmail.com</p>
+      <p style="padding: 24px; font-family: sans-serif">
+        Uttam Patel · AI Engineer &amp; Data Scientist. I build AI that ships. Email: utampipaliya@gmail.com
+      </p>
     </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>

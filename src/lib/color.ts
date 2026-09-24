@@ -1,4 +1,4 @@
-// Just enough color math to keep every W/L setting at WCAG AA or better.
+// Just enough color math to keep every temperature setting at WCAG AA or better.
 
 type RGB = [number, number, number]
 

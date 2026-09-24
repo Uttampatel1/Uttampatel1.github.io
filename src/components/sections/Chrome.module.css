@@ -1,63 +1,105 @@
 .header {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  inset: 0 0 auto;
   z-index: 50;
   height: var(--header-h);
-  background: color-mix(in srgb, var(--bg) 86%, transparent);
-  border-bottom: 1px solid var(--rule);
+  border-bottom: 1px solid transparent;
+  transition: background-color var(--t-fast), border-color var(--t-fast);
 }
+.scrolled {
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  border-bottom-color: var(--rule);
+}
+
 .bar {
   height: 100%;
   display: flex;
   align-items: center;
   gap: 24px;
 }
+
 .wordmark {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-family: var(--font-display);
-  font-size: 1.35rem;
   text-decoration: none;
+  font-weight: 500;
   white-space: nowrap;
+  min-height: 44px;
 }
-/* tiny crosshair mark */
 .mark {
-  width: 14px;
-  height: 14px;
-  background:
-    linear-gradient(var(--accent), var(--accent)) 50% 0 / 1px 100% no-repeat,
-    linear-gradient(var(--accent), var(--accent)) 0 50% / 100% 1px no-repeat;
+  width: 20px;
+  height: 20px;
+  fill: var(--fg);
+  stroke: var(--fg);
+  stroke-width: 1;
 }
+.markOut {
+  fill: var(--accent);
+  stroke: none;
+}
+.roleTag {
+  color: var(--muted);
+  font-size: 0.64rem;
+}
+
 .navWrap {
   margin-left: auto;
 }
 .nav {
   display: flex;
-  gap: clamp(12px, 1.6vw, 26px);
-  list-style: none;
-  margin: 0;
-  padding: 0;
+  gap: 22px;
 }
 .nav a {
-  color: var(--fg);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
 }
 .navIdx {
   color: var(--muted);
-  margin-right: 6px;
 }
 .menuBtn {
   display: none;
-  padding: 10px 12px;
-  border: 1px solid var(--rule-strong);
-  background: none;
 }
 
-@media (max-width: 1099px) {
+.tools {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.cv {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 0 12px;
+  background: var(--accent);
+  color: var(--on-accent);
+  text-decoration: none;
+}
+.cv:hover {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+@media (max-width: 1180px) {
+  .roleTag {
+    display: none;
+  }
+}
+
+@media (max-width: 899px) {
+  .askBtn {
+    display: none; /* the floating Ask button takes over */
+  }
   .menuBtn {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 12px;
+    background: none;
+    border: 1px solid var(--rule-strong);
   }
   .nav {
     position: fixed;
@@ -68,50 +110,50 @@
     gap: 0;
     padding: 8px var(--gutter) 20px;
     background: var(--bg);
-    border-bottom: 1px solid var(--rule-strong);
-    visibility: hidden;
-    clip-path: inset(0 0 100% 0);
-    transition:
-      clip-path var(--t-fast) var(--ease-out),
-      visibility 0s linear var(--t-fast);
+    border-bottom: 1px solid var(--rule);
+    display: none;
   }
   .nav.open {
-    visibility: visible;
-    clip-path: inset(0 0 0 0);
-    transition: clip-path var(--t-fast) var(--ease-out);
-  }
-  .nav li {
-    border-top: 1px solid var(--rule);
+    display: flex;
   }
   .nav a {
-    display: block;
-    padding: 16px 0;
-    font-size: 0.85rem;
+    width: 100%;
+    font-size: 0.9rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .bar {
+    gap: 12px;
   }
 }
 
+@media (max-width: 420px) {
+  .wordmark span:not(.roleTag) {
+    display: none; /* the mark alone; the hero carries the name */
+  }
+}
+
+/* layer HUD */
 .hud {
   position: fixed;
-  right: var(--gutter);
-  bottom: 16px;
+  left: var(--gutter);
+  bottom: 18px;
   z-index: 40;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  display: grid;
   gap: 6px;
-  color: var(--muted);
+  color: var(--fg);
   font-size: 0.64rem;
-  pointer-events: none;
   padding: 6px 8px;
-  background: color-mix(in srgb, var(--bg) 70%, transparent);
-  opacity: 0;
-  transition: opacity var(--t-fast) var(--ease-out);
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  transition: opacity var(--t-fast), transform var(--t-fast) var(--ease-out);
+  pointer-events: none;
 }
-.hudOn {
-  opacity: 1;
+.hudHidden {
+  opacity: 0;
+  transform: translateY(8px);
 }
 .hudTrack {
-  width: 140px;
+  display: block;
+  width: 100%;
   height: 1px;
   background: var(--rule-strong);
 }
@@ -122,25 +164,18 @@
   transform-origin: left;
   transform: scaleX(0);
 }
-@media (max-width: 899px) {
-  .hud {
-    display: none;
-  }
-}
 
+/* footer */
 .footer {
   position: relative;
   z-index: 2;
+  padding-block: 28px 90px;
   border-top: 1px solid var(--rule);
-  padding-block: 24px 80px;
 }
 .footBar {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  gap: 10px 24px;
+  gap: 12px;
   color: var(--muted);
-}
-.egg {
-  opacity: 0.7;
 }

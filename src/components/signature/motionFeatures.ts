@@ -1,4 +1,4 @@
-// Framer Motion's animation features, split out so they load only when a motion component mounts.
-import { domAnimation } from 'framer-motion'
+// Framer Motion's animation + layout features, split out so they load only when needed.
+import { domMax } from 'framer-motion'
 
-export default domAnimation
+export default domMax

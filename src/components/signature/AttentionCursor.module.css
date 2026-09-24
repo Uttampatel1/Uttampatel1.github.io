@@ -1,0 +1,49 @@
+.canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 90;
+  pointer-events: none;
+}
+
+.dot {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 91;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--t-fast);
+}
+.dot span {
+  position: absolute;
+  left: -4px;
+  top: -4px;
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  transition: transform var(--t-fast) var(--ease-out), border-radius var(--t-fast) var(--ease-out),
+    background-color var(--t-fast);
+}
+.dot::after {
+  content: '';
+  position: absolute;
+  left: -14px;
+  top: -14px;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0.4);
+  transition: transform var(--t-fast) var(--ease-out), opacity var(--t-fast);
+}
+.engaged span {
+  transform: scale(0.5);
+  border-radius: 50%;
+}
+.engaged::after {
+  opacity: 0.8;
+  transform: scale(1);
+}

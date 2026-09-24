@@ -1,0 +1,59 @@
+.wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dial {
+  width: 44px;
+  height: 44px;
+  touch-action: none;
+  border-radius: 50%;
+  user-select: none;
+}
+.dial svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.tick,
+.lit {
+  stroke-width: 1;
+  stroke-linecap: square;
+}
+.tick {
+  stroke: var(--rule-strong);
+}
+.lit {
+  stroke: var(--accent);
+}
+
+.body {
+  fill: var(--surface);
+  stroke: var(--rule-strong);
+  stroke-width: 1;
+  transition: stroke var(--t-micro);
+}
+.dial:hover .body,
+.dial:focus-visible .body {
+  stroke: var(--fg);
+}
+
+.needle {
+  stroke: var(--fg);
+  stroke-width: 1.5;
+  transform-origin: 20px 20px;
+  transition: transform var(--t-fast) var(--ease-out);
+}
+
+.value {
+  display: grid;
+  line-height: 1.2;
+  min-width: 4ch;
+  font-size: 0.7rem;
+}
+.key {
+  color: var(--muted);
+  font-size: 0.6rem;
+}

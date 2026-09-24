@@ -1,186 +1,121 @@
 import { useState } from 'react'
-import { about, faq, links, profile, projectCategories, projects, services } from '../../content'
-import { useWindowLevel } from '../../hooks/useWindowLevel'
-import { refreshScroll } from '../../lib/scroll'
-import { ConsultForm } from '../signature/ConsultForm'
-import { ProjectCard } from '../signature/ProjectCard'
-import { ScanReport } from '../signature/ScanReport'
-import { SkillCloud } from '../signature/SkillCloud'
-import { Slice } from '../ui/Slice'
+import { epochs } from '../../data/experience'
+import { about, education, faq, links, profile, services } from '../../data/profile'
+import { projects } from '../../data/projects'
+import { skillClusters } from '../../data/skills'
+import { CollaborateRequest } from '../signature/CollaborateRequest'
+import { EmbeddingSpace } from '../signature/EmbeddingSpace'
+import { TrainingLog } from '../signature/TrainingLog'
+import { Layer } from '../ui/Layer'
 import { Todo } from '../ui/Todo'
-import ServiceCanvas from './ServiceCanvas.jsx'
 import styles from './Sections.module.css'
 
-// Canvas illustrations read their colors once; re-key them when the W/L dial moves far enough.
-function useCanvasThemeKey() {
-  const wl = useWindowLevel()
-  return `${wl.film}-${Math.round(wl.level / 10)}-${Math.round(wl.window / 20)}`
-}
-
 export function About() {
+  const facts: [string, React.ReactNode][] = [
+    ['role', profile.role],
+    ['ships', 'ML models · LLM agents · SaaS · data systems'],
+    ['founder', 'Hunexture (agency) · CliniqEase (SaaS)'],
+    ['education', education.school ? `${education.degree}, ${education.school}` : education.degree],
+    ['based', profile.location],
+    [
+      'contact',
+      <a key="e" className="u-link" href={`mailto:${profile.email}`}>
+        {profile.email}
+      </a>,
+    ],
+  ]
   return (
-    <Slice
+    <Layer
       id="about"
-      index={1}
-      sliceNo={16}
-      kicker="About"
+      meta={`d_model=${services.length}`}
+      aside="identity → vector"
       title={
         <>
-          Models that hold up <em>outside the notebook.</em>
+          From idea <em>to production.</em>
         </>
       }
+      lead={profile.intro}
     >
-      <div className={styles.aboutGrid} data-stagger>
-        {about.map((p, i) => (
-          <p key={i} className={i === 0 ? styles.lead : styles.aboutBody}>
-            {p}
-          </p>
-        ))}
-      </div>
-    </Slice>
-  )
-}
-
-export function Work() {
-  const themeKey = useCanvasThemeKey()
-  const [filter, setFilter] = useState('All')
-  const [expanded, setExpanded] = useState(false)
-  const matching = filter === 'All' ? projects : projects.filter((p) => p.category === filter)
-  const visible = filter === 'All' && !expanded ? matching.slice(0, 6) : matching
-
-  return (
-    <Slice
-      id="work"
-      index={2}
-      sliceNo={47}
-      kicker="Selected work"
-      aside={`${projects.length} projects`}
-      title={
-        <>
-          Selected <em>work.</em>
-        </>
-      }
-    >
-      <div className={styles.filters} role="group" aria-label="Filter projects">
-        {['All', ...projectCategories].map((c) => (
-          <button
-            key={c}
-            type="button"
-            className={`mono ${styles.filter}`}
-            aria-pressed={filter === c}
-            onClick={() => {
-              setFilter(c)
-              setExpanded(false)
-              refreshScroll()
-            }}
-          >
-            {c}
-            <span className={styles.count}>{c === 'All' ? projects.length : projects.filter((p) => p.category === c).length}</span>
-          </button>
-        ))}
-      </div>
-
-      <ul className={styles.projects} key={filter}>
-        {visible.map((p) => (
-          <ProjectCard key={p.title} project={p} index={projects.indexOf(p)} themeKey={themeKey} />
-        ))}
-      </ul>
-
-      {filter === 'All' && (
-        <button
-          type="button"
-          className={`mono ${styles.more}`}
-          onClick={() => {
-            setExpanded((e) => !e)
-            refreshScroll()
-          }}
-          aria-expanded={expanded}
-        >
-          {expanded ? 'Show fewer projects' : `Show all ${projects.length} projects`} <span aria-hidden="true">{expanded ? '−' : '+'}</span>
-        </button>
-      )}
-    </Slice>
-  )
-}
-
-export function Services() {
-  const key = useCanvasThemeKey()
-  return (
-    <Slice
-      id="services"
-      index={3}
-      sliceNo={63}
-      kicker="Services"
-      title={
-        <>
-          What I <em>build.</em>
-        </>
-      }
-    >
-      <div className={styles.services} data-stagger>
-        {services.map((svc, i) => (
-          <article key={svc.title} className={styles.service}>
-            <div className={styles.serviceViz}>
-              <ServiceCanvas kind={svc.visual} theme={key} />
-              <span className={`mono ${styles.serviceIdx}`} aria-hidden="true">
-                S-{String(i + 1).padStart(2, '0')}
-              </span>
+      <div className={styles.aboutGrid}>
+        <div className={styles.aboutText} data-stagger>
+          {about.map((p, i) => (
+            <p key={i} className={i === 0 ? styles.big : styles.body}>
+              {p}
+            </p>
+          ))}
+        </div>
+        <dl className={styles.facts} aria-label="Key facts">
+          {facts.map(([k, v]) => (
+            <div key={k} className={styles.fact}>
+              <dt className="mono">{k}</dt>
+              <dd>{v}</dd>
             </div>
-            <h3>{svc.title}</h3>
-            <p>{svc.text}</p>
-          </article>
-        ))}
+          ))}
+          {!education.school && <Todo>college + years → data/profile.ts → education</Todo>}
+        </dl>
       </div>
-    </Slice>
+
+      <ol className={styles.services} data-stagger aria-label="What I build">
+        {services.map((s, i) => (
+          <li key={s.title} className={styles.service}>
+            <span className={`mono ${styles.dim}`} aria-hidden="true">
+              d_{String(i).padStart(2, '0')}
+            </span>
+            <h3>{s.title}</h3>
+            <p>{s.text}</p>
+          </li>
+        ))}
+      </ol>
+    </Layer>
   )
 }
 
 export function Skills() {
+  const n = skillClusters.reduce((s, c) => s + c.items.length, 0)
   return (
-    <Slice
+    <Layer
       id="skills"
-      index={4}
-      sliceNo={79}
-      kicker="Toolkit"
+      meta={`${n} points · ${skillClusters.length} clusters`}
+      aside="hover a skill for its nearest neighbours"
       title={
         <>
-          The toolkit, <em>as a volume.</em>
+          The toolkit, <em>embedded.</em>
         </>
       }
+      lead="Skills as points in a drifting 3D space. Hover or focus a cluster to isolate it; hover or focus a skill to see its nearest neighbours."
     >
-      <SkillCloud />
-    </Slice>
+      <EmbeddingSpace />
+    </Layer>
   )
 }
 
-export function Report() {
+export function Log() {
   return (
-    <Slice
-      id="report"
-      index={5}
-      sliceNo={94}
-      kicker="Experience"
+    <Layer
+      id="log"
+      meta={`${epochs.length} epochs`}
+      aside="loss ↓ as you scroll"
       title={
         <>
-          Scan <em>report.</em>
+          The training <em>log.</em>
         </>
       }
+      lead="Experience as a training run: each role is an epoch, each milestone a checkpoint."
     >
-      <ScanReport />
-    </Slice>
+      <TrainingLog />
+    </Layer>
   )
 }
 
 export function Faq() {
   return (
-    <Slice
+    <Layer
       id="faq"
-      index={6}
-      sliceNo={110}
-      kicker="Questions"
+      meta={`held-out set · n=${faq.length}`}
+      aside="or press Ctrl/⌘ K to ask your own"
       title={
         <>
-          Questions, <em>answered.</em>
+          Held-out <em>questions.</em>
         </>
       }
     >
@@ -188,7 +123,7 @@ export function Faq() {
         {faq.map((item, i) => (
           <details key={item.q} className={styles.qa}>
             <summary>
-              <span className={`mono ${styles.qIdx}`}>Q.{String(i + 1).padStart(2, '0')}</span>
+              <span className={`mono ${styles.qIdx}`}>q_{String(i).padStart(2, '0')}</span>
               <span className={styles.q}>{item.q}</span>
               <span className={styles.plus} aria-hidden="true" />
             </summary>
@@ -196,7 +131,7 @@ export function Faq() {
           </details>
         ))}
       </div>
-    </Slice>
+    </Layer>
   )
 }
 
@@ -232,22 +167,19 @@ function CopyEmail({ email }: { email: string }) {
 export function Contact() {
   const liveLinks = links.filter((l) => l.href)
   return (
-    <Slice
+    <Layer
       id="contact"
-      index={7}
-      sliceNo={125}
-      kicker="Contact"
+      meta="POST /collaborate"
+      aside={`${projects.length} models on file · yours next`}
       title={
         <>
-          Request a <em>consult.</em>
+          Send a <em>request.</em>
         </>
       }
     >
       <div className={styles.contactGrid}>
         <div className={styles.contactInfo}>
-          <p className={styles.lead}>
-            Working on something with data or AI? I’m glad to talk about projects, roles or a problem you’re stuck on.
-          </p>
+          <p className={styles.big}>Building something with AI, data or a product that needs to ship? Send the request; a human answers.</p>
           <CopyEmail email={profile.email} />
           <address className={`mono ${styles.address}`}>{profile.address}</address>
           {liveLinks.length > 0 && (
@@ -261,10 +193,10 @@ export function Contact() {
               ))}
             </ul>
           )}
-          {links.some((l) => !l.href) && <Todo>GitHub / LinkedIn URLs in content.ts → links</Todo>}
+          {links.some((l) => !l.href) && <Todo>GitHub / LinkedIn URLs → data/profile.ts → links</Todo>}
         </div>
-        <ConsultForm />
+        <CollaborateRequest />
       </div>
-    </Slice>
+    </Layer>
   )
 }
