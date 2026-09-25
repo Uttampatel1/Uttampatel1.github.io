@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://uttampatel1.github.io/sitemap.xml
