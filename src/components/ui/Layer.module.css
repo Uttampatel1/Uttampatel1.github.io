@@ -3,6 +3,9 @@
   z-index: 2;
   padding-block: 8px clamp(72px, 10vw, 150px);
   outline: none;
+  /* off-screen layers skip style/layout/paint until they approach the viewport */
+  content-visibility: auto;
+  contain-intrinsic-size: auto 1400px;
 }
 
 .frame {

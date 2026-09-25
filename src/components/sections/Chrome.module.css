@@ -147,6 +147,11 @@
   transition: opacity var(--t-fast), transform var(--t-fast) var(--ease-out);
   pointer-events: none;
 }
+@media (max-width: 899px) {
+  .hud {
+    display: none; /* every layer labels itself; on phones the corner belongs to content */
+  }
+}
 .hudHidden {
   opacity: 0;
   transform: translateY(8px);

@@ -51,6 +51,7 @@ export function computeVars(t: number) {
 const clamp = (t: number) => Math.round(Math.max(0, Math.min(1, t)) * 100) / 100
 
 function load(): TempState {
+  if (typeof window === 'undefined') return { t: T.default, ...computeVars(T.default) }
   try {
     const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null')
     if (saved && typeof saved.t === 'number') return { t: clamp(saved.t), ...computeVars(clamp(saved.t)) }
@@ -100,6 +101,9 @@ export function setTemperature(t: number) {
 // Called once at boot so the store and the DOM agree (index.html already applied saved vars pre-paint).
 export const initTemperature = () => apply(null)
 export const getTemperature = () => state
+// what the prerendered HTML was built with; React hydrates against this, then switches to `state`
+const serverState: TempState = { t: T.default, ...computeVars(T.default) }
+const getServerTemperature = () => serverState
 
 const subscribe = (l: () => void) => {
   listeners.add(l)
@@ -107,5 +111,5 @@ const subscribe = (l: () => void) => {
 }
 
 export function useTemperature() {
-  return useSyncExternalStore(subscribe, getTemperature, getTemperature)
+  return useSyncExternalStore(subscribe, getTemperature, getServerTemperature)
 }

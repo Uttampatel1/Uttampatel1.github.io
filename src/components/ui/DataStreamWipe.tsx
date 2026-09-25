@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useId, useMemo, useRef } from 'react'
 import { prefersReducedMotion } from '../../hooks/useReducedMotion'
 import styles from './DataStreamWipe.module.css'
 
@@ -9,7 +9,16 @@ const GLYPHS = '01{}[]<>/=+-*.:;#%&ΣλΔ∂∇θ'
 // is simply there.
 export function DataStreamWipe() {
   const ref = useRef<HTMLDivElement>(null)
-  const text = useMemo(() => Array.from({ length: 64 }, () => GLYPHS[(Math.random() * GLYPHS.length) | 0]).join(''), [])
+  // seeded from useId so the prerendered HTML and the client render agree
+  const id = useId()
+  const text = useMemo(() => {
+    let seed = 7
+    for (const ch of id) seed = (seed * 31 + ch.charCodeAt(0)) % 2147483647
+    return Array.from({ length: 64 }, () => {
+      seed = (seed * 16807) % 2147483647
+      return GLYPHS[seed % GLYPHS.length]
+    }).join('')
+  }, [id])
 
   useEffect(() => {
     const el = ref.current

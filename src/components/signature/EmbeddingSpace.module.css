@@ -9,6 +9,7 @@
   grid-column: 1 / span 7;
   position: relative;
   aspect-ratio: 1 / 0.92;
+  overflow: hidden;
   border: 1px solid var(--rule);
   background: radial-gradient(circle at 50% 45%, var(--surface), transparent 70%);
 }

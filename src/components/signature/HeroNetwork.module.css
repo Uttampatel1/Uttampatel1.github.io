@@ -85,11 +85,13 @@
   white-space: nowrap;
 }
 
+/* tokens paint on the first frame as faint, unresolved logits, then resolve one by one: the name
+   is readable (and the LCP element) immediately, and the stream still reads as generation */
 .token {
   display: inline;
   white-space: pre;
-  opacity: 0;
-  animation: token-in 1ms linear forwards;
+  opacity: 0.14;
+  animation: token-in 140ms steps(2, end) forwards;
 }
 @keyframes token-in {
   to {
@@ -124,13 +126,13 @@
   margin-top: 8px;
   font-size: var(--fs-display);
   line-height: 0.95;
-  opacity: 0;
+  opacity: 0.3;
   animation: rise var(--t-base) var(--ease-out) 820ms forwards;
 }
 
 @keyframes rise {
   from {
-    opacity: 0;
+    opacity: 0.3;
     transform: translateY(14px);
   }
   to {
@@ -150,7 +152,7 @@
   display: grid;
   gap: 4px;
   padding-top: 14px;
-  opacity: 0;
+  opacity: 0.3;
   animation: rise var(--t-base) var(--ease-out) forwards;
 }
 .outputs b {

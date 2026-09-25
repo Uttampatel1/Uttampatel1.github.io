@@ -3,7 +3,7 @@ import styles from './CommandBar.module.css'
 
 const CommandBar = lazy(() => import('./CommandBar'))
 
-const isMac = typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent)
+const detectMac = () => typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent)
 
 // Opens "Ask my portfolio": Cmd/Ctrl+K anywhere, the header button, or the floating button on
 // touch devices. The dialog itself is a separate chunk, fetched on first open (or on hover intent).
@@ -50,6 +50,9 @@ export function CommandBarLauncher() {
 
 // The header's version of the trigger, with the shortcut hint.
 export function AskButton({ className }: { className?: string }) {
+  // decided after mount so the prerendered HTML (always "Ctrl") hydrates cleanly
+  const [isMac, setMac] = useState(false)
+  useEffect(() => setMac(detectMac()), [])
   return (
     <button
       type="button"

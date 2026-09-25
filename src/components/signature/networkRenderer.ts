@@ -38,6 +38,8 @@ export function startNetwork({ canvas, host, reduce, onReadout }: Opts) {
   let particles: Particle[] = []
   let byLayer: number[][] = []
   let pulses: Pulse[] = []
+  const BUCKETS = 10
+  const buckets: Edge[][] = Array.from({ length: BUCKETS }, () => [])
   let fg = '#ECE8DF'
   let accent = '#C6FF3D'
 
@@ -193,30 +195,54 @@ export function startNetwork({ canvas, host, reduce, onReadout }: Opts) {
     // edges
     ctx.lineWidth = 1
     ctx.strokeStyle = fg
+    // edges, batched: one stroke per alpha bucket instead of one per edge
     const edgeAlpha = Math.max(0, (assembled - 0.5) * 2)
-    for (const e of edges) {
-      const a = nodes[e.from]
-      const b = nodes[e.to]
-      ctx.globalAlpha = edgeAlpha * (0.035 + Math.abs(e.w) * 0.04 + e.flow * 0.3 + a.a * b.a * 0.18)
-      ctx.beginPath()
-      ctx.moveTo(a.x, a.y)
-      ctx.lineTo(b.x, b.y)
-      ctx.stroke()
+    if (edgeAlpha > 0) {
+      for (const b of buckets) b.length = 0
+      for (const e of edges) {
+        const a = nodes[e.from]
+        const b = nodes[e.to]
+        const alpha = 0.035 + Math.abs(e.w) * 0.04 + e.flow * 0.3 + a.a * b.a * 0.18
+        buckets[Math.min(BUCKETS - 1, Math.floor(alpha * BUCKETS * 2))].push(e)
+      }
+      buckets.forEach((list, i) => {
+        if (!list.length) return
+        ctx.globalAlpha = edgeAlpha * ((i + 0.5) / (BUCKETS * 2))
+        ctx.beginPath()
+        for (const e of list) {
+          ctx.moveTo(nodes[e.from].x, nodes[e.from].y)
+          ctx.lineTo(nodes[e.to].x, nodes[e.to].y)
+        }
+        ctx.stroke()
+      })
     }
 
-    // particles: noise → structure, then a temperature-scaled shimmer
+    // particles: noise → structure, then a temperature-scaled shimmer. Once assembled, each kind is
+    // one path and one fill.
     ctx.fillStyle = fg
     const jitter = 0.2 + motion * 1.6
-    for (const p of particles) {
-      const q = reduce ? 1 : easeOut(Math.min(1, Math.max(0, (t - p.delay) / 1300)))
-      let x = p.sx + (p.tx - p.sx) * q
-      let y = p.sy + (p.ty - p.sy) * q
-      if (!reduce) {
-        x += Math.sin(t / 700 + p.seed) * jitter * q
-        y += Math.cos(t / 900 + p.seed * 1.3) * jitter * q
+    const settled = reduce || t > 650 + 1300
+    for (const kind of [0, 1] as const) {
+      if (settled) {
+        ctx.globalAlpha = kind === 0 ? 0.55 : 0.22
+        ctx.beginPath()
       }
-      ctx.globalAlpha = p.kind === 0 ? 0.55 : 0.22 + (1 - q) * 0.3
-      ctx.fillRect(x, y, 1.4, 1.4)
+      for (const p of particles) {
+        if (p.kind !== kind) continue
+        const q = settled ? 1 : easeOut(Math.min(1, Math.max(0, (t - p.delay) / 1300)))
+        let x = p.sx + (p.tx - p.sx) * q
+        let y = p.sy + (p.ty - p.sy) * q
+        if (!reduce) {
+          x += Math.sin(t / 700 + p.seed) * jitter * q
+          y += Math.cos(t / 900 + p.seed * 1.3) * jitter * q
+        }
+        if (settled) ctx.rect(x, y, 1.4, 1.4)
+        else {
+          ctx.globalAlpha = kind === 0 ? 0.55 : 0.22 + (1 - q) * 0.3
+          ctx.fillRect(x, y, 1.4, 1.4)
+        }
+      }
+      if (settled) ctx.fill()
     }
 
     // nodes

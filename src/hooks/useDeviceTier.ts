@@ -3,7 +3,10 @@ export type Tier = { low: boolean; fps: 30 | 60; finePointer: boolean; touch: bo
 
 let cached: Tier | null = null
 
+const SERVER: Tier = { low: false, fps: 60, finePointer: true, touch: false }
+
 export function getDeviceTier(): Tier {
+  if (typeof window === 'undefined') return SERVER // prerender: assume desktop, corrected after hydration
   if (cached) return cached
   const nav = navigator as Navigator & { deviceMemory?: number }
   const cores = nav.hardwareConcurrency || 4

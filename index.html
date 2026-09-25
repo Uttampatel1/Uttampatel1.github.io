@@ -17,13 +17,8 @@
     />
     <meta name="twitter:card" content="summary" />
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <!-- Google Fonts serves unicode-range subsets; display=swap keeps text visible while they load -->
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400..600&family=JetBrains+Mono:wght@400;500&display=swap"
-    />
+    <!-- fonts are self-hosted latin subsets with font-display: swap (see styles/base.css). Not
+         preloaded on purpose: on slow connections they would compete with the critical CSS/JS. -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",

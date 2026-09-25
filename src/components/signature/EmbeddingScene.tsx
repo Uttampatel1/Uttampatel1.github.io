@@ -152,7 +152,7 @@ export default function EmbeddingScene(props: Props) {
       className={styles.canvas}
       frameloop="demand"
       dpr={tier.low ? 1 : [1, 1.5]}
-      camera={{ position: [0, 0.3, 6.2], fov: 40 }}
+      camera={{ position: [0, 0.3, window.innerWidth < 900 ? 8 : 6.2], fov: 40 }}
       gl={{ antialias: !tier.low, alpha: true, powerPreference: 'low-power' }}
       aria-hidden="true"
     >

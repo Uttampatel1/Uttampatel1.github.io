@@ -21,7 +21,8 @@ export function HeroNetwork() {
   const temp = useTemperature()
   const ctl = useRef<{ retheme: () => void; stop: () => void } | null>(null)
   const [failed, setFailed] = useState(false)
-  const touch = getDeviceTier().touch
+  const [touch, setTouch] = useState(false)
+  useEffect(() => setTouch(getDeviceTier().touch), [])
 
   useEffect(() => {
     let cancelled = false
