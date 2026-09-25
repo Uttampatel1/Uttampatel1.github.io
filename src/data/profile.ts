@@ -74,8 +74,9 @@ export const faq = [
 
 // Empty links are hidden in production.
 export const links = [
-  { label: 'GitHub', href: '' }, // TODO
-  { label: 'LinkedIn', href: '' }, // TODO
+  { label: 'GitHub', href: 'https://github.com/Uttampatel1' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/uttam-pipaliya' },
+  { label: 'X', href: 'https://x.com/Utam_Pipaliya' },
   { label: 'Hugging Face', href: 'https://huggingface.co/Uttampatel' },
 ]
 

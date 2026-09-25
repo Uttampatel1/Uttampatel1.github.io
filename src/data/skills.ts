@@ -1,7 +1,7 @@
 import type { CategoryId } from '../design/tokens'
 
 // Skills as clusters in an embedding space. `color` borrows a category hue so a cluster and
-// the projects it powers read as the same thing. Only tools already on the site are listed.
+// the projects it powers read as the same thing. Only tools from the site's own content and the public GitHub repos are listed.
 export type SkillCluster = { id: string; label: string; color: CategoryId; items: string[] }
 
 export const skillClusters: SkillCluster[] = [
@@ -9,31 +9,31 @@ export const skillClusters: SkillCluster[] = [
     id: 'aiml',
     label: 'AI / ML',
     color: 'ml',
-    items: ['Python', 'PyTorch', 'TensorFlow', 'Keras', 'scikit-learn', 'CNNs', 'LSTMs', 'Transformers', 'Optuna', 'MLflow'],
+    items: ['Python', 'PyTorch', 'TensorFlow', 'Keras', 'scikit-learn', 'XGBoost', 'SHAP', 'CNNs', 'LSTMs', 'Transformers', 'YOLO', 'OpenCV', 'MLflow'],
   },
   {
     id: 'llm',
     label: 'LLMs & Agents',
     color: 'llm',
-    items: ['LangChain', 'Gemini', 'RAG', 'LoRA / QLoRA', 'PEFT', 'FAISS', 'Sentence Transformers', 'Whisper'],
+    items: ['LangChain', 'Gemini', 'RAG', 'Function calling', 'Multi-agent systems', 'LoRA / QLoRA', 'PEFT', 'FAISS', 'Sentence Transformers', 'BM25 hybrid search'],
   },
   {
     id: 'auto',
     label: 'Automation',
     color: 'agency',
-    items: ['n8n', 'AI workflows', 'Webhooks', 'FastAPI', 'Docker'],
+    items: ['n8n', 'AI workflows', 'Webhooks', 'FastAPI', 'Docker', 'GitHub Actions'],
   },
   {
     id: 'web',
     label: 'Full-Stack & SaaS',
     color: 'saas',
-    items: ['Django', 'React', 'Angular', 'Node.js', 'JavaScript', 'PHP', 'MySQL', 'MongoDB', 'Kubernetes'],
+    items: ['Django', 'Django REST Framework', 'Flask', 'Streamlit', 'React', 'Angular', 'Node.js', 'JavaScript', 'PHP', 'MySQL', 'MongoDB', 'SQLite', 'Kubernetes'],
   },
   {
     id: 'data',
     label: 'Data & Quant',
     color: 'quant',
-    items: ['Pandas', 'NumPy', 'SQL', 'R', 'Spark', 'Kafka', 'Hadoop', 'Plotly', 'Stable-Baselines3', 'Redis'],
+    items: ['Pandas', 'NumPy', 'SQL', 'R', 'SciPy', 'statsmodels', 'LightGBM', 'Prophet', 'Spark', 'Kafka', 'Hadoop', 'Plotly', 'yfinance', 'Backtesting'],
   },
   {
     id: 'web3',

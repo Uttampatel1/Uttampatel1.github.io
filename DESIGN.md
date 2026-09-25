@@ -85,11 +85,16 @@ Packages (already in package.json): `react`, `react-dom`, `framer-motion`, `gsap
 - n/a No raster images exist yet; if you add screenshots, ship AVIF/WebP with `srcset`
 
 **Content rules**
-- [x] Medical-imaging, MRI, brain-segmentation, radiology, regulatory and clearance references removed from copy, meta, JSON-LD, alt/ARIA text, comments and assets. Search over `src/ public/ scripts/ index.html` and the built `dist/` returns **zero** matches (only false positives excluded: `.slice()`, "JetBrains Mono", and npm's `"type": "consulting"` in the lockfile)
+- [x] Medical-imaging, MRI, brain-segmentation, radiology, regulatory and clearance references removed from copy, meta, JSON-LD, alt/ARIA text, comments and assets. Search over `src/ public/ scripts/ index.html` and the built `dist/` returns **zero** matches (only false positives excluded: `.slice()`, "JetBrains Mono", npm's `"type": "consulting"` in the lockfile, and "customer segmentation", the marketing term in the RFM project and its repo URL)
 - [x] No employer product named; no invented metrics, clients or awards. Every gap is a `TODO` in `src/data/*`, shown as an amber chip in `npm run dev` and hidden in production
 
+## Sources for filled content
+Links, employer (IBM) and the open-source projects come from the public GitHub profile
+(github.com/Uttampatel1). Every metric on those cards is the key result in that repo's README;
+most of them come from synthetic data, and the card label says so.
+
 ## Open TODOs (only you can fill these)
-`profile.cvHref` (CV PDF in `public/`), `profile.yearsExperience`, GitHub/LinkedIn URLs,
-`contactEndpoint` (until then the form opens a pre-filled email and says so), college + years,
-employer + years, real milestones per epoch, and status/role/metric for n8n + Gemini, CliniqEase,
-the Web3 project and Hunexture, plus the trading bot's broker/API.
+`profile.cvHref` (CV PDF in `public/`), `profile.yearsExperience`, `contactEndpoint` (until then
+the form opens a pre-filled email and says so), college + years, years for each epoch, real
+milestones for the IBM epoch, a role for each project, and status/metric for n8n + Gemini,
+CliniqEase, the Web3 project and Hunexture.

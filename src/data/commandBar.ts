@@ -45,7 +45,7 @@ export const answers: Answer[] = [
     id: 'llm',
     keywords: ['llm', 'agent', 'agents', 'gpt', 'gemini', 'rag', 'chatbot', 'n8n', 'automation', 'automate', 'workflow', 'genai', 'generative'],
     answer:
-      'LLM agents and automations: n8n + Gemini pipelines, a multimodal agent system, an LoRA / QLoRA fine-tuning platform and dense retrieval for RAG. I start from the task and the data, and add an evaluation set from day one.',
+      'LLM agents and automations: a four-agent Planner → Researcher → Writer → Reviewer system with a claim-level fact-checker, a RAG assistant with hybrid dense + BM25 retrieval and citations, a support bot that takes real actions through function calling, and n8n + Gemini pipelines. All on Gemini, all open source on GitHub.',
     action: { label: `Filter: ${categories.llm.label}`, href: '#work?cat=llm' },
   },
   {
@@ -58,7 +58,7 @@ export const answers: Answer[] = [
     id: 'quant',
     keywords: ['trading', 'quant', 'market', 'markets', 'stock', 'finance', 'forecast', 'forecasting', 'time series', 'fraud'],
     answer:
-      'An algorithmic trading bot for Indian markets built on DQN and PPO, real-time fraud detection with graph neural networks, and attention-based time series forecasting.',
+      'An NSE trading-strategy backtester for Indian large-caps (net of costs, walk-forward tested), a reinforcement-learning trading bot, demand forecasting at ~3% MAPE, an A/B testing toolkit and customer segmentation.',
     action: { label: `Filter: ${categories.quant.label}`, href: '#work?cat=quant' },
   },
   {
@@ -70,8 +70,14 @@ export const answers: Answer[] = [
   {
     id: 'cv',
     keywords: ['cv', 'resume', 'résumé', 'experience', 'education', 'degree', 'background', 'history'],
-    answer: 'B.Tech in Computer Science, then data science and AI engineering alongside founding an agency and a SaaS. The training log has the epochs.',
+    answer: 'B.Tech in Computer Science, then data science and AI engineering (currently at IBM) alongside founding an agency and a SaaS. The training log has the epochs.',
     action: { label: 'Read the training log', href: '#log' },
+  },
+  {
+    id: 'social',
+    keywords: ['github', 'linkedin', 'twitter', 'x', 'social', 'code', 'repo', 'repos', 'open source', 'huggingface', 'hugging face'],
+    answer: 'GitHub: github.com/Uttampatel1 · LinkedIn: linkedin.com/in/uttam-pipaliya · X: @Utam_Pipaliya · Hugging Face: huggingface.co/Uttampatel. The open-source projects on the cards link straight to their repos.',
+    action: { label: 'Contact links', href: '#contact' },
   },
   {
     id: 'location',
