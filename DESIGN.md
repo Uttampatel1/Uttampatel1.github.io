@@ -89,12 +89,12 @@ Packages (already in package.json): `react`, `react-dom`, `framer-motion`, `gsap
 - [x] No employer product named; no invented metrics, clients or awards. Every gap is a `TODO` in `src/data/*`, shown as an amber chip in `npm run dev` and hidden in production
 
 ## Sources for filled content
-Links, employer (IBM) and the open-source projects come from the public GitHub profile
+Links and the open-source projects come from the public GitHub profile
 (github.com/Uttampatel1). Every metric on those cards is the key result in that repo's README;
 most of them come from synthetic data, and the card label says so.
 
 ## Open TODOs (only you can fill these)
 `profile.cvHref` (CV PDF in `public/`), `profile.yearsExperience`, `contactEndpoint` (until then
 the form opens a pre-filled email and says so), college + years, years for each epoch, real
-milestones for the IBM epoch, a role for each project, and status/metric for n8n + Gemini,
+milestones for the current-role epoch, a role for each project, and status/metric for n8n + Gemini,
 CliniqEase, the Web3 project and Hunexture.

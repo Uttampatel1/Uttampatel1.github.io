@@ -13,7 +13,6 @@ import styles from './Sections.module.css'
 export function About() {
   const facts: [string, React.ReactNode][] = [
     ['role', profile.role],
-    ['currently', 'IBM'],
     ['ships', 'ML models · LLM agents · SaaS · data systems'],
     ['founder', 'Hunexture (agency) · CliniqEase (SaaS)'],
     ['education', education.school ? `${education.degree}, ${education.school}` : education.degree],

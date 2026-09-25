@@ -23,7 +23,7 @@ export const epochs: Epoch[] = [
   },
   {
     role: 'AI Engineer & Data Scientist',
-    org: 'IBM', // from the GitHub profile; no internal product names
+    org: '', // employer intentionally not shown on the site
     years: '', // TODO: e.g. '2023 – present'
     checkpoints: ['Machine learning models, LLM agents and data systems taken to production'], // TODO: 2–4 real milestones
   },

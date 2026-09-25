@@ -284,7 +284,7 @@ export const projects: Project[] = [
     title: 'Quantum machine learning research',
     category: 'ml',
     summary: 'Quantum-classical hybrid algorithms for optimisation: variational quantum eigensolvers (VQE) and QAOA.',
-    stack: ['Qiskit', 'Cirq', 'PennyLane', 'IBM Quantum', 'PyTorch'],
+    stack: ['Qiskit', 'Cirq', 'PennyLane', 'PyTorch'],
     metric: { value: '40%', label: 'speedup over classical methods' },
   },
 ]

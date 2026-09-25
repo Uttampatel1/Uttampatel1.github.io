@@ -70,7 +70,7 @@ export const answers: Answer[] = [
   {
     id: 'cv',
     keywords: ['cv', 'resume', 'résumé', 'experience', 'education', 'degree', 'background', 'history'],
-    answer: 'B.Tech in Computer Science, then data science and AI engineering (currently at IBM) alongside founding an agency and a SaaS. The training log has the epochs.',
+    answer: 'B.Tech in Computer Science, then data science and AI engineering alongside founding an agency and a SaaS. The training log has the epochs.',
     action: { label: 'Read the training log', href: '#log' },
   },
   {
