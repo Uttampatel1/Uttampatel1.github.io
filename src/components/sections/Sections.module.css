@@ -108,7 +108,10 @@
   border-color: var(--fg);
 }
 .count {
-  opacity: 0.7;
+  color: var(--muted); /* full opacity: muted is already solved to >= 4.5:1 */
+}
+.filter[aria-pressed='true'] .count {
+  color: inherit;
 }
 
 .query {
